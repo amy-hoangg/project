@@ -10,10 +10,10 @@ int main()
     cin >> x;
 
     y = x*x*x;
-    if (y <= -pow(10, 9)) {
+    if (y <= -pow(10, 10)) {
         cout<< "Error! The cube of "<<x<<" is not "<<y<<".";
     }
-    else if (y >= pow(10, 9)) {
+    else if (y >= pow(10, 10)) {
         cout<< "Error! The cube of "<<x<<" is not "<<y<<".";
     }
     else {
