@@ -1,5 +1,4 @@
 #include <iostream>
-#include <cmath>
 
 using namespace std;
 
@@ -10,14 +9,11 @@ int main()
     cin >> x;
 
     y = x*x*x;
-    if (y <= -pow(10, 10)) {
-        cout<< "Error! The cube of "<<x<<" is not "<<y<<".";
-    }
-    else if (y >= pow(10, 10)) {
+    if (x > 2154) {
         cout<< "Error! The cube of "<<x<<" is not "<<y<<".";
     }
     else {
-        cout << "The cube of 2 is " << y;
+        cout << "The cube of 2 is " << y << ".";
     }
     return 0;
 }
