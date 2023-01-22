@@ -13,7 +13,7 @@ int main()
         cout<< "Error! The cube of "<<x<<" is not "<<y<<".";
     }
     else {
-        cout << "The cube of 2 is " << y << ".";
+        cout << "The cube of "<<x<<" is " << y << ".";
     }
     return 0;
 }
