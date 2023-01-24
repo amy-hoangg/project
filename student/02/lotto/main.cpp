@@ -28,8 +28,11 @@ int main() {
     if (drawn <= 0 or total <= 0) {
         cout << "The number of balls must be a positive number.";
     }
+    else if (drawn > total) {
+        cout << "The maximum number of drawn balls is the total amount of balls.";
+    }
     else {
-        cout << "The probability of guessing all "<<drawn<<" balls correctly is 1/" << probability(total, drawn)<<".";
+        cout << "The probability of guessing all "<<drawn<<" balls correctly is 1/" << probability(total, drawn);
     }
     return 0;
 }
