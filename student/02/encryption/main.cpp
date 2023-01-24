@@ -32,7 +32,7 @@ string encryption(string s, string text) {
     int u = alphabet.find(text[i]);
     text.at(i) = s[u];
     }
-    return s;
+    return text;
 }
 
 
