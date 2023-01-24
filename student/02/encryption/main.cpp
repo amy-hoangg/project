@@ -26,9 +26,11 @@ bool pangram(string s) {
     return true;
 }
 
-string encryption(string s, string key) {
-    for (int i = 0; i < int(s.length()); i++) {
-        s[i] ^= key[i%key.length()];
+string encryption(string s, string text) {
+    for (int i = 0;i< int(text.length()); i++) {
+    string alphabet = "abcdefghijklmnopqrstuvwxyz";
+    int u = alphabet.find(text[i]);
+    text.at(i) = s[u];
     }
     return s;
 }
@@ -56,7 +58,7 @@ int main() {
                 return EXIT_FAILURE;
             }
 
-            else if (pangram(word) == false) {
+            else if (pangram(word) == true) {
                 string encrypt;
                 cout << "Enter the text to be encrypted: ";
                 cin >> encrypt;
