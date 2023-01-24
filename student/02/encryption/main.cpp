@@ -4,21 +4,18 @@
 using namespace std;
 
 bool lower(string s2) {
-    for (int i = 0; i < s2.length(); i++) {
+    for (int i = 0; i < int (s2.length()); i++) {
         if (isupper(s2[i])) {
             return false;
         }
-
-        else {
-            return true;
-        }
     }
+    return true;
 }
 
 bool pangram(string s) {
     int arr[26] = {0};
 
-    for (int i = 0; i < s.length(); i++) {
+    for (int i = 0; i < int(s.length()); i++) {
         arr[s[i] - 'a']++;
     }
 
@@ -30,7 +27,7 @@ bool pangram(string s) {
 }
 
 string encryption(string s, string key) {
-    for (int i = 0; i < s.length(); i++) {
+    for (int i = 0; i < int(s.length()); i++) {
         s[i] ^= key[i%key.length()];
     }
     return s;
