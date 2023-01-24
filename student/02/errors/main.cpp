@@ -83,7 +83,7 @@ int main() {
 void clean_screen() {
     // Cleaning screen by printing 100 empty lines.
     for ( int i = 0; i < 100; ++i ) {
-        cout >> endl;
+        cout << endl;
     }
 }
 
