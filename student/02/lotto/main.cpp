@@ -2,22 +2,22 @@
 
 using namespace std;
 
-unsigned int factorial(unsigned int num) {
-    int fact = 1;
-    for(unsigned int i = 1; i <= num; i++) {
+long int factorial(long int num) {
+    long int fact = 1;
+    for(long int i = 1; i <= num; i++) {
         fact = fact * i;
     }
     return fact;
 }
 
-int probability(int t, int d) {
-    int pro;
+long int probability(long int t, long int d) {
+    long int pro;
     pro = factorial(t)/(factorial(t-d)*factorial(d));
     return pro;
 }
 
 int main() {
-    int total, drawn;
+    long int total, drawn;
 
     cout << "Enter the total number of lottery balls: ";
     cin >> total;
