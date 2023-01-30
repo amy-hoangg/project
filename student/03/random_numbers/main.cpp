@@ -15,6 +15,7 @@ void produce_random_numbers(unsigned int lower, unsigned int upper)
 
     string input = "c";
     while (input != "q"){
+        cout << endl;
         cout << "Your drawn number is "<< distr(gen)<< endl;
         cout << "Press q to quit or any other key to continue: ";
         cin >> input;
