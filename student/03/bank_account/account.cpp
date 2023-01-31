@@ -65,7 +65,7 @@ void Account::transfer_to(Account &account, int money)
     {
         if (balance_ < money)
         {
-            cout << "Cannot take money: balance underflow";
+            cout << "Cannot take money: balance underflow"<<endl;
             cout << "Transfer from "<<iban_<<" failed";
             cout << endl;
         }
@@ -97,7 +97,7 @@ void Account::transfer_to(Account &account, int money)
 
 void Account::print() const
 {
-    cout << owner_ <<" : "<< iban_ <<" : "<<balance_<<" euros"<<endl;
+    cout << owner_ <<" : "<< iban_ <<" : "<<balance_<<" euros \n";
 }
 
 // Setting initial value for the static attribute running_number_
