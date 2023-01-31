@@ -3,6 +3,7 @@
 
 using namespace std;
 
+
 Account::Account(const string& owner, bool has_credit):
     owner_(owner), has_credit_(has_credit)
 {
