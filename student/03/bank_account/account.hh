@@ -32,7 +32,7 @@ private:
 
     // More attributes/methods
     string owner_;
-    int balance_;
+    int balance_ = 0;
     int credit_limit_;
     string iban_;
     bool has_credit_;

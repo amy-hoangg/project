@@ -97,7 +97,7 @@ void Account::transfer_to(Account &account, int money)
 
 void Account::print() const
 {
-    cout << owner_ <<" : "<< iban_ <<" : "<<balance_<<" euros\n";
+    cout << owner_ <<" : "<< iban_ <<" : "<<balance_<<" euros"<<endl;
 }
 
 // Setting initial value for the static attribute running_number_
