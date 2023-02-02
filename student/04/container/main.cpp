@@ -62,6 +62,10 @@ bool is_arithmetic_series (const vector<int>& ints)
 bool is_geometric_series(const vector<int>& ints)
 {
     if (ints.size() <=2) return false;
+    for (vector<int> :: size_type i = 2; i<ints.size(); i++)
+    {
+        if (ints[i] == 0) return false;
+    }
 
     if (same_values(ints)) return true;
 
