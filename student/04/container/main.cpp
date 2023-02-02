@@ -63,6 +63,8 @@ bool is_geometric_series(const vector<int>& ints)
 {
     if (ints.size() <=2) return false;
 
+    if (same_values(ints)) return true;
+
     int common_ratio = ints[1] / ints[0];
 
     for (vector<int> :: size_type i = 2; i<ints.size(); i++)
