@@ -42,7 +42,7 @@ bool is_ordered_non_strict_ascending(const vector<int>& ints)
 {
     for (vector<int> ::size_type i = 1; i < ints.size(); i++)
     {
-        if (ints[i-1] >= ints[i]) return false;
+        if (ints[i-1] > ints[i]) return false;
     }
     return true;
 }
