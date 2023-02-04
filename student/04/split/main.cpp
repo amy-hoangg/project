@@ -2,28 +2,53 @@
 #include <string>
 #include <vector>
 
+using namespace std;
 
 // TODO: Implement split function here
-// Do not change main function
+#include <iostream>
+#include <string>
+#include <vector>
 
+using namespace std;
+
+vector<string> split(const string& s, const char delimiter, bool ignore_empty = false)
+{
+    vector<string> result;
+    string tmp = s;
+
+    while(tmp.find(delimiter) != string::npos)
+    {
+        string new_part = tmp.substr(0, tmp.find(delimiter));
+        tmp = tmp.substr(tmp.find(delimiter) + 1, tmp.size());
+        if(not (ignore_empty and new_part.empty()))
+        {
+            result.push_back(new_part);
+        }
+    }
+    if(not (ignore_empty and tmp.empty()))
+    {
+        result.push_back(tmp);
+    }
+    return result;
+}
 
 int main()
 {
-    std::string line = "";
-    std::cout << "Enter a string: ";
-    getline(std::cin, line);
-    std::cout << "Enter the separator character: ";
+    string line = "";
+    cout << "Enter a string: ";
+    getline(cin, line);
+    cout << "Enter the separator character: ";
     char separator = getchar();
 
-    std::vector< std::string > parts  = split(line, separator);
-    std::cout << "Splitted string including empty parts: " << std::endl;
+    vector< string > parts  = split(line, separator);
+    cout << "Splitted string including empty parts: " << endl;
     for( auto part : parts ) {
-        std::cout << part << std::endl;
+        cout << part << endl;
     }
 
-    std::vector< std::string > parts_no_empty  = split(line, separator, true);
-    std::cout << "Splitted string ignoring empty parts: " << std::endl;
+    vector< string > parts_no_empty  = split(line, separator, true);
+    cout << "Splitted string ignoring empty parts: " << endl;
     for( auto part : parts_no_empty ) {
-        std::cout << part << std::endl;
+        cout << part << endl;
     }
 }
