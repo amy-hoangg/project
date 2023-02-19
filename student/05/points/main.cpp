@@ -36,7 +36,7 @@ int main()
             player = line.substr(0, separator_index);
             points = stoi(line.substr(separator_index+1));
 
-            info[player] = points;
+            info[player] += points;
         }
 
         cout << "Final scores: "<<endl;
