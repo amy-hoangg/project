@@ -22,9 +22,8 @@ int main()
         }
         else
         {
-            shuffle(word.begin(), word.end(), generator);
+            shuffle(word.begin()+1, word.end()-1, generator);
         }
-
 	
         cout << word << endl;
     }
