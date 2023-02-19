@@ -23,11 +23,11 @@ int main()
     {
         string line;
         string player;
-        double points;
+        int points;
 
-        map<string, double> info;
+        map<string, int> info;
 
-        map<string, double>::iterator my_iterator;
+        map<string, int>::iterator my_iterator;
 
 
         while (getline(fileObject, line))

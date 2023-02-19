@@ -9,4 +9,5 @@ SOURCES += \
 DISTFILES += \
     example1.input \
     hi.input \
-    hi.input
+    hi.input \
+    hi.txt
