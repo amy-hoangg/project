@@ -2,21 +2,25 @@
 #include <fstream>
 #include <string>
 #include <vector>
+#include <unordered_map>
 
-const std::string HELP_TEXT = "S = store id1 i2\nP = print id\n"
+using namespace std;
+using Network = unordered_map<string, vector<string>>;
+
+const string HELP_TEXT = "S = store id1 i2\nP = print id\n"
                               "C = count id\nD = depth id\n";
 
 
-std::vector<std::string> split(const std::string& s,
+vector<string> split(const string& s,
                                const char delimiter,
                                bool ignore_empty = false)
 {
-    std::vector<std::string> result;
-    std::string tmp = s;
+    vector<string> result;
+    string tmp = s;
 
-    while(tmp.find(delimiter) != std::string::npos)
+    while(tmp.find(delimiter) != string::npos)
     {
-        std::string new_part = tmp.substr(0, tmp.find(delimiter));
+        string new_part = tmp.substr(0, tmp.find(delimiter));
         tmp = tmp.substr(tmp.find(delimiter) + 1, tmp.size());
         if(not (ignore_empty and new_part.empty()))
         {
@@ -30,17 +34,76 @@ std::vector<std::string> split(const std::string& s,
     return result;
 }
 
+void store(string const &marketer, string const &marketee,
+           Network &network)
+{
+    //check if marketer in network
+    if(network.find(marketer) == network.end())
+        network.insert({marketer, {}});
+
+    //create index for marketee
+    if (network.find(marketee) == network.end())
+        network.insert({marketee, {}});
+
+    network.at(marketer).push_back(marketee);
+}
+
+void print_recursive(string const &id,
+                     Network const &network,
+                     string const dots = "")
+{
+    cout << dots << id <<endl;
+    //search deeper part of network of this person
+    vector<string> recruited_marketers = network.at(id);
+    //trivial case if vector is empty
+    for (string const &marketer : recruited_marketers)
+    {
+        print_recursive(marketer, network, dots + "..");
+    }
+}
+int count_recursive(string const &id,
+                     Network const &network, int count = 1)
+{
+
+    //similar to print, go through subnetworks
+    vector<string> recruited = network.at(id);
+    for (string const &marketer :recruited)
+    {
+        count += count_recursive(marketer, network);
+    }
+    return count;
+}
+
+int depth_recursive(string const &id, Network const &network)
+{
+    if (network.at(id).empty())
+    {
+        return 0;
+    }
+
+    int depth_record = 0;
+    for (string const &marketer: network.at(id))
+    {
+        int d = depth_recursive(marketer, network);
+        if (d > depth_record)
+        {
+            depth_record = d;
+        }
+    }
+
+    return depth_record + 1;
+}
+
 int main()
 {
-    // TODO: Implement the datastructure here
-
+    Network network;
 
     while(true)
     {
-        std::string line;
-        std::cout << "> ";
-        getline(std::cin, line);
-        std::vector<std::string> parts = split(line, ' ', true);
+        string line;
+        cout << "> ";
+        getline(cin, line);
+        vector<string> parts = split(line, ' ', true);
 
         // Allowing empty inputs
         if(parts.size() == 0)
@@ -48,55 +111,56 @@ int main()
             continue;
         }
 
-        std::string command = parts.at(0);
+        string command = parts.at(0);
 
         if(command == "S" or command == "s")
         {
             if(parts.size() != 3)
             {
-                std::cout << "Erroneous parameters!" << std::endl << HELP_TEXT;
+                cout << "Erroneous parameters!" << endl << HELP_TEXT;
                 continue;
             }
-            std::string id1 = parts.at(1);
-            std::string id2 = parts.at(2);
+            string id1 = parts.at(1);
+            string id2 = parts.at(2);
 
-            // TODO: Implement the command here!
+            store(id1, id2, network);
 
         }
         else if(command == "P" or command == "p")
         {
             if(parts.size() != 2)
             {
-                std::cout << "Erroneous parameters!" << std::endl << HELP_TEXT;
+                cout << "Erroneous parameters!" << endl << HELP_TEXT;
                 continue;
             }
-            std::string id = parts.at(1);
+            string id = parts.at(1);
 
-            // TODO: Implement the command here!
+            print_recursive(id, network);
 
         }
         else if(command == "C" or command == "c")
         {
             if(parts.size() != 2)
             {
-                std::cout << "Erroneous parameters!" << std::endl << HELP_TEXT;
+                cout << "Erroneous parameters!" << endl << HELP_TEXT;
                 continue;
             }
-            std::string id = parts.at(1);
+            string id = parts.at(1);
 
-            // TODO: Implement the command here!
+            cout << count_recursive(id, network, 0) <<endl;
 
         }
         else if(command == "D" or command == "d")
         {
             if(parts.size() != 2)
             {
-                std::cout << "Erroneous parameters!" << std::endl << HELP_TEXT;
+                cout << "Erroneous parameters!" << endl << HELP_TEXT;
                 continue;
             }
-            std::string id = parts.at(1);
+            string id = parts.at(1);
 
-            // TODO: Implement the command here!
+            int depth_record = depth_recursive(id, network);
+            cout << depth_record <<endl;
 
         }
         else if(command == "Q" or command == "q")
@@ -105,7 +169,8 @@ int main()
         }
         else
         {
-            std::cout << "Erroneous command!" << std::endl << HELP_TEXT;
+            cout << "Erroneous command!" << endl << HELP_TEXT;
         }
     }
 }
+
