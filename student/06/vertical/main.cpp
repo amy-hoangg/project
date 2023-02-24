@@ -1,5 +1,4 @@
 #include <iostream>
-#include <string>
 #ifndef RECURSIVE_FUNC
 #define RECURSIVE_FUNC
 #endif
