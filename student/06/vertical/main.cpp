@@ -1,4 +1,5 @@
 #include <iostream>
+#include <string>
 #ifndef RECURSIVE_FUNC
 #define RECURSIVE_FUNC
 #endif
@@ -13,6 +14,14 @@ void print_vertical(unsigned int num)
 
 
     // Add your implementation here
+    string str_num = to_string(num);
+    if (str_num.length() == 1)
+        cout << str_num[0] <<endl;
+    else
+    {
+        cout << str_num[0] <<endl;
+        print_vertical(stoi(str_num.substr(1)));
+    }
 }
 
 // Do not modify rest of the code, or the automated testing won't work.
