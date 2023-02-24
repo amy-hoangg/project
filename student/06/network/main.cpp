@@ -157,7 +157,7 @@ int main()
             string id = parts.at(1);
 
             int depth_record = depth_recursive(id, network);
-            cout << depth_record<<endl;
+            cout << depth_record + 1 <<endl;
 
         }
         else if(command == "Q" or command == "q")
