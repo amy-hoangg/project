@@ -76,24 +76,21 @@ int count_recursive(string const &id,
 
 int depth_recursive(string const &id, Network const &network)
 {
-    if (network.at(id).empty())
-    {
-        return 0;
-    }
-
-    int depth_record = 0;
-    for (string const &marketer: network.at(id))
-    {
-        int d = depth_recursive(marketer, network);
-        if (d > depth_record)
+    vector<string> followers = network.at(id);
+        int n=0;
+        if (network.at(id).empty())
+         {
+             return 0;
+         }
+        for(string const &i :followers)
         {
-            depth_record = d;
+            int d = depth_recursive(i,network);
+            if (d>n)
+                n=d;
         }
-    }
 
-    return depth_record + 1;
+        return n+1;
 }
-
 int main()
 {
     Network network;
@@ -160,7 +157,7 @@ int main()
             string id = parts.at(1);
 
             int depth_record = depth_recursive(id, network);
-            cout << depth_record -1 <<endl;
+            cout << depth_record<<endl;
 
         }
         else if(command == "Q" or command == "q")
