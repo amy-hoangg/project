@@ -38,7 +38,18 @@ vector<string> split(const string& s, const char delimiter, bool ignore_empty = 
 bool isLineValid(string const &line)
 {
     vector<string> lineParts = split(line, ';');
-    return lineParts.size() == 4;
+
+    if (lineParts.size() != 4) {
+        return false; // wrong number of fields
+    }
+
+    for (auto const &part : lineParts) {
+        if (part.empty()) {
+            return false; // empty field
+        }
+    }
+
+    return true;
 }
 
 void readFile(string const &filename,
@@ -175,7 +186,8 @@ void printReservable(MapLibs allLibraries,
         MapBooks mapBooksGotten = key_value_libs.second.getMapBooks();
         for (const auto& key_value_books : mapBooksGotten) {
             vector<Book> vector_books = key_value_books.second;
-            for (Book bookFinding : vector_books) {
+            for (Book bookFinding : vector_books)
+            {
                 if (bookFinding.author == reservableAuthorName &&
                     bookFinding.title == reservableBookName) {
                     bookFound = true;
