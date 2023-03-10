@@ -52,8 +52,7 @@ bool isLineValid(string const &line)
     return true;
 }
 
-void readFile(string const &filename,
-              MapLibs &allLibraries)
+bool isFileValid(string const &filename)
 {
     //OPEN FILE
     ifstream file(filename);
@@ -61,43 +60,51 @@ void readFile(string const &filename,
     //OPEN UNSUCCESSFULLY
     if(!file)
     {
-        cout << "Error: input file cannot be opened" <<endl;
-        exit(EXIT_FAILURE);
+        cerr << "Error: input file cannot be opened" <<endl;
+        return false;
     }
-
-    //OPEN SUCCESSFULLY
     string line;
     while(getline(file, line)) //HAM GETLINE NO TU DONG LOOP LUON
     {
-        if(isLineValid(line))
+        if(!isLineValid(line))
         {
-            //SPLIT
-            vector<string> lineParts = split(line, ';');
-
-            //WRITE OUT PARAMS
-            string libraryName = lineParts.at(0);
-            string author = lineParts.at(1);
-            string title = lineParts.at(2);
-            int reservations = 0;
-            if(lineParts.at(3) != "on-the-shelf")
-            {
-                reservations = stoi(lineParts.at(3));
-            }
-
-            //ADD LIB TO SYSTEM IF NOT AVAILABLE
-            if(allLibraries.find(libraryName) == allLibraries.end())
-            {
-                allLibraries.insert({libraryName, Library(libraryName)});
-            }
-
-            //ADD BOOK, AUTHOR, RESERVE
-            allLibraries.at(libraryName).addBook(author, title, reservations);
+            cerr << "Error: empty field" <<endl;
+            return false;
         }
-        else
+    }
+    return true;
+}
+
+void readFile(string const &filename,
+              MapLibs &allLibraries)
+{
+    //OPEN FILE
+    ifstream file(filename);
+
+    string line;
+    while(getline(file, line)) //HAM GETLINE NO TU DONG LOOP LUON
+    {
+        //SPLIT
+        vector<string> lineParts = split(line, ';');
+
+        //WRITE OUT PARAMS
+        string libraryName = lineParts.at(0);
+        string author = lineParts.at(1);
+        string title = lineParts.at(2);
+        int reservations = 0;
+        if(lineParts.at(3) != "on-the-shelf")
         {
-            cout << "Error: empty field" <<endl;
-            exit(EXIT_FAILURE);
+            reservations = stoi(lineParts.at(3));
         }
+
+        //ADD LIB TO SYSTEM IF NOT AVAILABLE
+        if(allLibraries.find(libraryName) == allLibraries.end())
+        {
+            allLibraries.insert({libraryName, Library(libraryName)});
+        }
+
+        //ADD BOOK, AUTHOR, RESERVE
+        allLibraries.at(libraryName).addBook(author, title, reservations);
     }
     file.close();
 }
@@ -326,6 +333,10 @@ int main()
     getline(cin, filename);
 
     //READ FILE AND PUT INTO DATABASE
+    if(isFileValid(filename) == false)
+    {
+        return EXIT_FAILURE;
+    }
     readFile(filename, allLibraries);
 
 
