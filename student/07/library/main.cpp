@@ -8,6 +8,7 @@
 #include <algorithm>
 #include <numeric>
 #include <cstdlib> //USE FOR EXIT
+#include <climits>
 
 using namespace std;
 using MapLibs = map<string, Library>;
