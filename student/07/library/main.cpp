@@ -110,6 +110,17 @@ bool comparison(const PairKeyValue &pair1,
     return pair1.second<pair2.second;
 }
 
+bool comparisonForReservations(const pair<string, int> &pair1,
+                              const pair<string, int> &pair2)
+{
+    if(pair1.second != pair2.second)
+    {
+        return pair1.second<pair2.second;
+    }
+    return pair1.first<pair2.first;
+}
+
+
 void printMaterial(Library const &libraryName)
 {
     vector<PairKeyValue> flatLib = libraryName.flatDatabase();
@@ -155,7 +166,6 @@ void printReservable (MapLibs allLibraries,
                      string const &reservableAuthorName,
                      string const &reservableBookName)
 {
-    int total_reservations = 0;
     vector<pair<string, int>> libs_reservations = {};
     bool bookFound = false; //flag to know if the book is found or not
 
@@ -171,13 +181,26 @@ void printReservable (MapLibs allLibraries,
                         && bookFinding.title == reservableBookName)
                 {
                     bookFound = true;
-                    total_reservations += bookFinding.reservations;
                     libs_reservations.push_back(make_pair(key_value_libs.first,
                                                           bookFinding.reservations));
                 }
             }
         }
     }
+
+    //SORT NAME KEY_VALUE_LIBS
+    sort(libs_reservations.begin(), libs_reservations.end(), comparisonForReservations);
+    int total_reservations = libs_reservations.at(0).second;
+    vector<string> new_libs_reservations;
+
+    for(vector<pair<string, int>>::size_type i = 0;
+        i < libs_reservations.size();
+        i++)
+    {
+        if(libs_reservations.at(i).second == libs_reservations.at(0).second)
+            new_libs_reservations.push_back(libs_reservations.at(i).first);
+    }
+
     //NOT FOUND
     if(!bookFound)
     {
@@ -203,9 +226,9 @@ void printReservable (MapLibs allLibraries,
         cout << total_reservations << " reservations" << endl;
     }
 
-    for(const auto &pair : libs_reservations)
+    for(const auto &libName : new_libs_reservations)
     {
-        cout << "--- " << pair.first <<endl;
+        cout << "--- " << libName <<endl;
     }
 }
 
