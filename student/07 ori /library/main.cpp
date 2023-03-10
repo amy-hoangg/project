@@ -432,6 +432,5 @@ int main()
             cout << "Error: unknown command" <<endl;
         }
     }
-
     return EXIT_SUCCESS;
 }
