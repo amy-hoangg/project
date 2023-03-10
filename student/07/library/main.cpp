@@ -162,27 +162,30 @@ bool isOnTheShelf(vector<pair<string,int>> libs_reservations)
     return false;
 }
 
-void printReservable (MapLibs allLibraries,
-                     string const &reservableAuthorName,
-                     string const &reservableBookName)
+void printReservable(MapLibs allLibraries,
+                     string const& reservableAuthorName,
+                     string const& reservableBookName)
 {
-    vector<pair<string, int>> libs_reservations = {};
+    vector<pair<string, int>> libs_reservations;
+    int leastReservations = INT_MAX;
     bool bookFound = false; //flag to know if the book is found or not
 
-    for(const auto &key_value_libs : allLibraries)
-    {
+    for (const auto& key_value_libs : allLibraries) {
         MapBooks mapBooksGotten = key_value_libs.second.getMapBooks();
-        for(const auto &key_value_books : mapBooksGotten)
-        {
+        for (const auto& key_value_books : mapBooksGotten) {
             vector<Book> vector_books = key_value_books.second;
-            for(Book bookFinding : vector_books)
-            {
-                if(bookFinding.author == reservableAuthorName
-                        && bookFinding.title == reservableBookName)
-                {
+            for (Book bookFinding : vector_books) {
+                if (bookFinding.author == reservableAuthorName &&
+                    bookFinding.title == reservableBookName) {
                     bookFound = true;
-                    libs_reservations.push_back(make_pair(key_value_libs.first,
-                                                          bookFinding.reservations));
+                    int current_reservations = bookFinding.reservations;
+                    if (current_reservations < leastReservations) {
+                        leastReservations = current_reservations;
+                        libs_reservations.clear();
+                        libs_reservations.push_back(make_pair(key_value_libs.first, leastReservations));
+                    } else if (current_reservations == leastReservations) {
+                        libs_reservations.push_back(make_pair(key_value_libs.first, leastReservations));
+                    }
                 }
             }
         }
@@ -190,48 +193,30 @@ void printReservable (MapLibs allLibraries,
 
     //SORT NAME KEY_VALUE_LIBS
     sort(libs_reservations.begin(), libs_reservations.end(), comparisonForReservations);
-    int total_reservations = libs_reservations.at(0).second;
-    vector<string> new_libs_reservations;
-
-    for(vector<pair<string, int>>::size_type i = 0;
-        i < libs_reservations.size();
-        i++)
-    {
-        if(libs_reservations.at(i).second == libs_reservations.at(0).second)
-            new_libs_reservations.push_back(libs_reservations.at(i).first);
-    }
 
     //NOT FOUND
-    if(!bookFound)
-    {
-        cout << "Book is not a library book" <<endl;
+    if (!bookFound) {
+        cout << "Book is not a library book" << endl;
         return; //EXIT THE FUNCTION
     }
 
-
     //CANNOT BE RESERVED
-    if(total_reservations == 100)
-    {
-        cout << "Book is not reservable from any library" <<endl;
+    if (leastReservations == 100) {
+        cout << "Book is not reservable from any library" << endl;
         return;
     }
 
     //CAN BE RESERVED
-    if(isOnTheShelf(libs_reservations) == true)
-    {
-        cout << "on the shelf" <<endl;
-    }
-    else
-    {
-        cout << total_reservations << " reservations" << endl;
+    if (isOnTheShelf(libs_reservations) == true) {
+        cout << "on the shelf" << endl;
+    } else {
+        cout << leastReservations << " reservations" << endl;
     }
 
-    for(const auto &libName : new_libs_reservations)
-    {
-        cout << "--- " << libName <<endl;
+    for (const auto& pair : libs_reservations) {
+        cout << "--- " << pair.first << endl;
     }
 }
-
 void printLoanable (MapLibs allLibraries)
 {
     //USING SET TO KEEP TRACK, BUT NEED TO USE SORT
@@ -264,11 +249,13 @@ void printLoanable (MapLibs allLibraries)
         }
     }
     sort(author_book.begin(), author_book.end(), comparison);
+
     for(const auto &pair : author_book)
     {
         cout << pair.first << ": " << pair.second <<endl;
     }
 }
+
 
 string removeQuotes(string stringIncludeQuotes)
 {
