@@ -137,6 +137,66 @@ void readFile(string const &filename, MapLibs &allLibraries)
     file.close();
 }
 
+// Print the names of all libraries in the MapLibs container.
+// Param allLibraries: a MapLibs container containing the libraries.
+void printLibraries(MapLibs const &allLibraries)
+{
+    for(MapLibs::const_iterator iter = allLibraries.begin();
+        iter != allLibraries.end();
+        iter++)
+    {
+        cout << iter->first << endl;
+    }
+}
+
+// Compare two pairs of strings to determine which comes first lexicographically.
+// Param pair1: a reference to a PairKeyValue object.
+// Param pair2: a reference to another PairKeyValue object.
+// Return: true if pair1 comes before pair2, false otherwise.
+bool comparison(const PairKeyValue &pair1,
+                const PairKeyValue &pair2)
+{
+    if(pair1.first != pair2.first)
+    {
+        return pair1.first<pair2.first;
+    }
+    return pair1.second<pair2.second;
+}
+
+// Print the books in a library sorted by author.
+// Param libraryName: a reference to a Library object.
+void printMaterial(Library const &libraryName)
+{
+    vector<PairKeyValue> flatLib = libraryName.flatDatabase();
+
+    //sort the data in flatLib by author.
+    sort(flatLib.begin(), flatLib.end(), comparison);
+
+    // output the sorted book data for each author in the library.
+    for(const auto &author_books : flatLib)
+    {
+        cout << author_books.first << ": " << author_books.second <<endl;
+    }
+}
+
+// Check if a library name is present in the MapLibs container.
+// Param allLibraries: a MapLibs container containing the libraries.
+// Param libraryName: the name of the library to check.
+// Return: true if the libraryName is present in the container, false otherwise.
+bool isLibraryValid(MapLibs allLibraries,
+                      string const &libraryName)
+{
+    bool valid = false;
+    for(const auto &key_value_libs : allLibraries)
+    {
+        if(libraryName == key_value_libs.first) //If libraryName is found in the container.
+            valid = true;
+    }
+    if(valid == true) return true;
+
+    return false;
+}
+
 int main()
 {
     //initialize the data structures
@@ -158,5 +218,36 @@ int main()
     //put the library data into database
     readFile(filename, allLibraries);
 
+    string userCommand;
+    while(true)
+    {
+        cout << "lib> ";
+        getline(cin, userCommand);
+
+        //split command
+        vector<string> command = split(userCommand, ' ');
+
+        //command = quit
+        if(userCommand == "quit")
+            break;
+
+        //command = libraries
+        else if(userCommand == "libraries")
+            printLibraries(allLibraries);
+
+        //command = material
+        else if(command.at(0) == "material")
+        {
+            if(isLibraryValid(allLibraries, command.at(1)) == false)
+            {
+                cout << "Error: unknown library" <<endl;
+            }
+            else
+            {
+                string materialLibraryName = command.at(1);
+                printMaterial(allLibraries.at(materialLibraryName));
+            }
+        }
+    }
     return EXIT_SUCCESS;
 }
