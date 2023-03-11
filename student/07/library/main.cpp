@@ -197,6 +197,53 @@ bool isLibraryValid(MapLibs allLibraries,
     return false;
 }
 
+// Check if an author exists in the collections of all libraries.
+// Param allLibraries: a map containing all libraries.
+// Param authorName: the author name to check.
+// Return true if the author exists in the collections of all libraries, false otherwise.
+bool isAuthorValid(MapLibs allLibraries,
+                   string const &authorName)
+{
+    bool valid = false;
+    for(const auto &key_value_libs : allLibraries)
+    {
+        //Get the map of books for the current library.
+        MapBooks mapBooksGotten = key_value_libs.second.getMapBooks();
+        for(const auto &key_value_books : mapBooksGotten)
+        {
+            // Check if the author name exists in the current library's map of books.
+            if(authorName == key_value_books.first)
+                valid = true;
+        }
+    }
+    if(valid == true) return true;
+    return false;
+}
+
+// Print the books written by a specific author in a library.
+// Param libraryName: a reference to a Library object.
+// Param authorName: the name of the author.
+void printBooks(Library const &libraryName,
+                string const &authorName)
+{
+    // Get the books and their number of reservations for the given author.
+    vector<PairKeyValue> books_reservations = libraryName.books_reservations(authorName);
+
+    // Sort the books in alphabetical order.
+    sort(books_reservations.begin(), books_reservations.end(), comparison);
+    for(const auto &books : books_reservations)
+    {
+        if(stoi(books.second) == 0)
+        {
+            cout << books.first << " --- " << "on the shelf" <<endl;
+        }
+        else
+        {
+            cout << books.first << " --- " << books.second <<" reservations "<<endl;
+        }
+    }
+}
+
 int main()
 {
     //initialize the data structures
@@ -246,6 +293,35 @@ int main()
             {
                 string materialLibraryName = command.at(1);
                 printMaterial(allLibraries.at(materialLibraryName));
+            }
+        }
+
+        //command = book
+        else if(command.at(0) == "books")
+        {
+            //WRONG SIZE
+            if(command.size() != 3)
+            {
+                cout << "Error: wrong number of parameters" <<endl;
+            }
+
+            //WRONG LIBRARY
+            else if(isLibraryValid(allLibraries,command.at(1)) == false)
+            {
+                cout << "Error: unknown library" <<endl;
+            }
+
+            //TRUE LIBRARY, WRONG AUTHOR
+            else if(isAuthorValid(allLibraries, command.at(2)) == false)
+            {
+                cout << "Error: unknown author" <<endl;
+            }
+
+            else
+            {
+                string booksLibraryName = command.at(1);
+                string booksAuthorName = command.at(2);
+                printBooks(allLibraries.at(booksLibraryName), booksAuthorName);
             }
         }
     }
