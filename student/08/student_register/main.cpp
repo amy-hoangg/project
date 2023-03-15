@@ -186,7 +186,7 @@ int main() {
             //fetch student number and modify
             student_numbers.at(parts.at(1)) -> phone_number
                     = phone;
-            cout<<endl<<endl;
+            cout<<endl;
 
 
         } else if(command == "Q" or command == "q") {
