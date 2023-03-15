@@ -175,6 +175,7 @@ int main() {
             string phone;
             cout << "Enter a new phone number: ";
             getline(cin, phone);
+            cout <<endl;
 
             //validate phone
             if(!is_valid_phone_number(phone))
@@ -186,7 +187,7 @@ int main() {
             //fetch student number and modify
             student_numbers.at(parts.at(1)) -> phone_number
                     = phone;
-            cout<<endl;
+
 
 
         } else if(command == "Q" or command == "q") {
