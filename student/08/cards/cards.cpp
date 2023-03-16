@@ -42,6 +42,8 @@ bool Cards::remove(int &id)
     Card_data *temp = top_;
     top_ = temp->next;
 
+    id = temp->data;
+
     delete temp;
 
     return true; //chay function thanh cong
