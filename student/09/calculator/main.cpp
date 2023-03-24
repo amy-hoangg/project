@@ -157,6 +157,11 @@ int main() {
                     cout << GREETING_AT_END << endl;
                     break;
                 }
+                else
+                {
+                    cout << "Error: wrong number of parameters."<<endl;
+                    continue;
+                }
             }
 
             else
