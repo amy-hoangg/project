@@ -234,5 +234,16 @@ void University::print_study_state(Params params)
 
 void University::graduate(Params params)
 {
+    int account_number = stoi(params.at(0));
 
+    if (accounts_.find(account_number) == accounts_.end() )
+    {
+        cout << CANT_FIND << account_number << endl;
+        return;
+    }
+    else
+    {
+        accounts_.at(account_number)
+                ->make_graduate();
+    }
 }

@@ -161,12 +161,33 @@ void Account::print_completed_courses()
 
 void Account::make_graduate()
 {
+    //completed
+    if(is_graduated_ == true)
+    {
+        cout << GRADUATED <<endl;
+        return;
+    }
 
+    //not completed
+    else
+    {
+        is_graduated_ = true;
+
+        //make all the courses completed
+        for(auto current_course : registered_courses_)
+        {
+            completed_courses_
+                    .push_back(current_course);
+        }
+        registered_courses_.clear();
+
+        cout << GRADUATED <<endl;
+    }
 }
 
 bool Account::is_graduated()
 {
-
+    return is_graduated_;
 }
 
 
