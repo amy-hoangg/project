@@ -91,103 +91,27 @@ void Account::register_for_the_course(Course *new_registered_course)
 
 void Account::complete_course(Course *new_completed_course)
 {
-    //check completed
-    auto iter1 = find(completed_courses_.begin(),
-                      completed_courses_.end(),
-                      new_completed_course);
 
-    //not completed
-    if(iter1 == completed_courses_.end())
-    {
-        auto iter2 = find(registered_courses_.begin(),
-                         registered_courses_.end(),
-                         new_completed_course);
-
-        //not registered
-        if(iter2 == registered_courses_.end())
-        {
-            cout << NO_SIGNUPS <<endl;
-            return;
-        }
-
-        //registered
-        else
-        {
-            cout << COMPLETED <<endl;
-            completed_courses_
-                    .push_back(new_completed_course);
-            registered_courses_
-                    .erase(iter2);
-        }
-    }
-
-    //completed
-    else
-    {
-        cout << NO_SIGNUPS <<endl;
-        return;
-    }
 }
 
 void Account::print_current_and_completed_courses()
 {
-    cout << "Current:" <<endl;
-    for(auto current_course : registered_courses_)
-    {
-        current_course->print_info(true);
-    }
 
-    cout << "Completed:" <<endl;
-    for(auto completed_course : completed_courses_)
-    {
-        completed_course->print_info(true);
-    }
-
-    cout << "Total credits: ";
-    int total_credits = 5*completed_courses_.size();
-    cout << total_credits <<endl;
 }
 
 void Account::print_completed_courses()
 {
-    for(auto completed_course : completed_courses_)
-    {
-        completed_course->print_info(true);
-    }
-    cout << "Total credits: ";
-    int total_credits = 5*completed_courses_.size();
-    cout << total_credits <<endl;
+
 }
 
 void Account::make_graduate()
 {
-    //completed
-    if(is_graduated_ == true)
-    {
-        cout << GRADUATED <<endl;
-        return;
-    }
 
-    //not completed
-    else
-    {
-        is_graduated_ = true;
-
-        //make all the courses completed
-        for(auto current_course : registered_courses_)
-        {
-            completed_courses_
-                    .push_back(current_course);
-        }
-        registered_courses_.clear();
-
-        cout << GRADUATED <<endl;
-    }
 }
 
 bool Account::is_graduated()
 {
-    return is_graduated_;
+
 }
 
 
