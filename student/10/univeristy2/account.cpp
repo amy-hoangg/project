@@ -131,7 +131,21 @@ void Account::complete_course(Course *new_completed_course)
 
 void Account::print_current_and_completed_courses()
 {
+    cout << "Current:" <<endl;
+    for(auto current_course : registered_courses_)
+    {
+        current_course->print_info(true);
+    }
 
+    cout << "Completed:" <<endl;
+    for(auto completed_course : completed_courses_)
+    {
+        completed_course->print_info(true);
+    }
+
+    cout << "Total credits: ";
+    int total_credits = 5*completed_courses_.size();
+    cout << total_credits <<endl;
 }
 
 void Account::print_completed_courses()
