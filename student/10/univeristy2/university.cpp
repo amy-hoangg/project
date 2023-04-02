@@ -182,7 +182,20 @@ void University::complete(Params params)
 
 void University::print_signups(Params params)
 {
+    string course_code = params.at(0);
 
+    if (courses_.find(course_code) == courses_.end() )
+    {
+        cout << CANT_FIND << course_code << endl;
+        return;
+    }
+
+    else
+    {
+        map<string, Course*>::iterator iter
+                = courses_.find(course_code);
+        iter->second->print_students_in_the_course();
+    }
 }
 
 void University::print_completed(Params params)
