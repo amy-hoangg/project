@@ -150,7 +150,13 @@ void Account::print_current_and_completed_courses()
 
 void Account::print_completed_courses()
 {
-
+    for(auto completed_course : completed_courses_)
+    {
+        completed_course->print_info(true);
+    }
+    cout << "Total credits: ";
+    int total_credits = 5*completed_courses_.size();
+    cout << total_credits <<endl;
 }
 
 void Account::make_graduate()

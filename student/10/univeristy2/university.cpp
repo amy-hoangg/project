@@ -200,7 +200,19 @@ void University::print_signups(Params params)
 
 void University::print_completed(Params params)
 {
+    int account_number = stoi(params.at(0));
 
+    if (accounts_.find(account_number) == accounts_.end())
+    {
+        cout << CANT_FIND << account_number << endl;
+        return;
+    }
+    else
+    {
+        map<int, Account*>::iterator iter
+                = accounts_.find(account_number);
+        iter->second->print_completed_courses();
+    }
 }
 
 void University::print_study_state(Params params)
