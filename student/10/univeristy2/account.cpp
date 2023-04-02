@@ -91,7 +91,42 @@ void Account::register_for_the_course(Course *new_registered_course)
 
 void Account::complete_course(Course *new_completed_course)
 {
+    //check completed
+    auto iter1 = find(completed_courses_.begin(),
+                      completed_courses_.end(),
+                      new_completed_course);
 
+    //not completed
+    if(iter1 == completed_courses_.end())
+    {
+        auto iter2 = find(registered_courses_.begin(),
+                         registered_courses_.end(),
+                         new_completed_course);
+
+        //not registered
+        if(iter2 == registered_courses_.end())
+        {
+            cout << NO_SIGNUPS <<endl;
+            return;
+        }
+
+        //registered
+        else
+        {
+            cout << COMPLETED <<endl;
+            completed_courses_
+                    .push_back(new_completed_course);
+            registered_courses_
+                    .erase(iter2);
+        }
+    }
+
+    //completed
+    else
+    {
+        cout << NO_SIGNUPS <<endl;
+        return;
+    }
 }
 
 void Account::print_current_and_completed_courses()
