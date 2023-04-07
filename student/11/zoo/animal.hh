@@ -9,6 +9,7 @@ using namespace std;
 class Animal
 {
 public:
+    //Animal o day co 2 cai constructor lien
     Animal();
     Animal(const string& moving_noise);
 

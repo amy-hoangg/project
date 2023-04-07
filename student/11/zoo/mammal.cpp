@@ -1,6 +1,6 @@
 #include "mammal.hh"
 
-Mammal::Mammal(): Animal("Mus mus")
+Mammal::Mammal(): Animal("Kip kop kip kop")
 {
 
 }
