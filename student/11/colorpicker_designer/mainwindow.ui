@@ -194,7 +194,7 @@
   </connection>
   <connection>
    <sender>horizontalSliderRed</sender>
-   <signal>sliderMoved(int)</signal>
+   <signal>valueChanged(int)</signal>
    <receiver>spinBoxRed</receiver>
    <slot>setValue(int)</slot>
    <hints>
@@ -210,7 +210,7 @@
   </connection>
   <connection>
    <sender>horizontalSliderGreen</sender>
-   <signal>sliderMoved(int)</signal>
+   <signal>valueChanged(int)</signal>
    <receiver>spinBoxGreen</receiver>
    <slot>setValue(int)</slot>
    <hints>
@@ -226,7 +226,7 @@
   </connection>
   <connection>
    <sender>horizontalSliderBlue</sender>
-   <signal>sliderMoved(int)</signal>
+   <signal>valueChanged(int)</signal>
    <receiver>spinBoxBlue</receiver>
    <slot>setValue(int)</slot>
    <hints>
