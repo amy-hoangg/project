@@ -1,6 +1,6 @@
 #ifndef MAINWINDOW_HH
 #define MAINWINDOW_HH
-#include <QMainWindow> //them parent
+#include <QMainWindow>
 #include <QFile>
 /*
  * namespaces are used to organize classes,
@@ -45,12 +45,8 @@ public:
 
 
 private slots:
-    void on_fineLineEdit_textChanged(const QString &arg1);
 
     void on_findPushButton_clicked();
-
-    void on_keyLineEdit_textChanged(const QString &arg1);
-
     void on_matchCheckBox_stateChanged(int arg1);
 
 private:

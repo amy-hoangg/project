@@ -6,21 +6,49 @@ MainWindow::MainWindow(QWidget *parent)
     , ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
+    //connect function being used to establish between signals
+    //and slots in the GUI application
+
+    //member function
+    connect(ui->findPushButton,
+            &QPushButton::clicked,
+            this,
+            &MainWindow::on_findPushButton_clicked);
+    //signal: clicked of
+    //object, instance: ui->findPushButton
+    //class:  QPushButton
+
+    //send to
+    //object: MainWindow
+    //slot: on_findPushButton_clicked()
+
+    //This means that whenever the
+    //user clicks on the findPushButton button,
+    //the on_findPushButton_clicked() function will be called.
+
+    connect(ui->matchCheckBox,
+            &QCheckBox::stateChanged,
+            this,
+            &MainWindow::on_matchCheckBox_stateChanged);
+    //objects can emit signals
+    //objects can emit signals
+    //-> executing a slot
+    //-> respond to those signals
+
+    //object: ui->matchCheckBox
+    //class: QCheckbox
+    //signal: statechanged
+
+    //object nhan: Mainwindow
+    //slot: on_matchCheckBox_stateChanged
+    //tuc la cu khi nao
+    //co statechanged la function on_matchCheckBox_stateChanged
+    //lai duoc called
 }
 
 MainWindow::~MainWindow()
 {
     delete ui;
-}
-
-void MainWindow::on_fineLineEdit_textChanged(const QString &arg1)
-{
-    ui->textBrowser->setText("");
-}
-
-void MainWindow::on_keyLineEdit_textChanged(const QString &arg1)
-{
-    ui->textBrowser->setText("");
 }
 
 void MainWindow::on_findPushButton_clicked()
@@ -94,11 +122,8 @@ void MainWindow::on_findPushButton_clicked()
         ui->textBrowser->setText("Find not found");
     }
 }
-
-
-
 void MainWindow::on_matchCheckBox_stateChanged(int arg1)
 {
-
+    Q_UNUSED(arg1);
 }
 
