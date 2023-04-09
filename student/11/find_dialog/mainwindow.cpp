@@ -53,7 +53,7 @@ MainWindow::~MainWindow()
 
 void MainWindow::on_findPushButton_clicked()
 {
-    QString inputFileName = ui->fineLineEdit->text().trimmed();
+    QString inputFileName = ui->fileLineEdit->text().trimmed();
     QString targetWord = ui->keyLineEdit->text().trimmed();
     bool matchCase = ui->matchCheckBox->isChecked();
 
@@ -115,7 +115,6 @@ void MainWindow::on_findPushButton_clicked()
             ui->textBrowser->setText("Word not found");
         }
     }
-
 
     else
     {
