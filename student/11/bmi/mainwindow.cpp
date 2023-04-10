@@ -27,7 +27,7 @@ void MainWindow::on_countButton_clicked()
     if(ui->heightLineEdit->text().isEmpty()
             || height == 0)
     {
-        ui->resultLabel->setText("Cannot count");
+        ui->resultLabel->setText("Cannot count.");
 
     }
     else
