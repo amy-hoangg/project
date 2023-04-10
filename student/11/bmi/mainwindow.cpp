@@ -43,7 +43,7 @@ void MainWindow::on_countButton_clicked()
             ui->infoTextBrowser->setText("You are underweight.");
         }
 
-        else if(18.5 <= bmi <= 25)
+        else if(bmi >= 18.5 && bmi <= 25)
         {
             ui->infoTextBrowser->setText("Your weight is normal.");
         }
